@@ -8,10 +8,10 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t
+	listint_t *tmp, *index, *current;
 	index = tmp->next;
 
-	if (*list == NULL || *list->next = NULL)
+	if (*list == NULL || (*list)->next == NULL)
 		return;
 	while (tmp && tmp->next)
 	{
@@ -21,7 +21,13 @@ void insertion_sort_list(listint_t **list)
 			index = index->next;
 			if (tmp->n > index->n)
 			{
-				tmp->next = index->next;
+				current = index->next;
+				index->prev = tmp->prev;
 				index->next = tmp;
 				tmp->prev = index;
-				
+				tmp->next = current;
+				print_list(*list);
+			}
+		}
+	}
+}
