@@ -8,26 +8,25 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp, *index, *current;
+	listint_t *tmp = *list, *index, *current, *next;
 	index = tmp->next;
 
 	if (*list == NULL || (*list)->next == NULL)
 		return;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
-		tmp = tmp->next;
-		while (index)
+		index = tmp->next;
+		while (tmp->n > index->n)
 		{
-			index = index->next;
-			if (tmp->n > index->n)
-			{
-				current = index->next;
-				index->prev = tmp->prev;
-				index->next = tmp;
+				current = tmp->prev;
+				next = index->next;
+				tmp->next = next;
 				tmp->prev = index;
-				tmp->next = current;
+				index->next = tmp;
+				index->prev = current;
 				print_list(*list);
-			}
+			index = index->next;
 		}
+		tmp = tmp->next;
 	}
 }
