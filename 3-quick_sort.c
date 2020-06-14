@@ -1,5 +1,6 @@
 #include "sort.h"
 
+
 /**
  * lomuto_partition - sorts an array of integers in ascending order
  * using the Selection sort algorithm
@@ -10,7 +11,7 @@
  * Return: lo
  */
 
-int lomuto_partition(int *array, int lo, int hi)
+int lomuto_partition(int *array, size_t size, int lo, int hi)
 {
 
 	int pivot = array[hi];
@@ -25,11 +26,12 @@ int lomuto_partition(int *array, int lo, int hi)
 			array[i] = array[lo];
 			array[lo] = tmp;
 			lo++;
+			print_array(array, size);
 		}
 	}
-	tmp2 = array[i];
-	array[i] = hi;
-	hi = tmp2;
+	tmp2 = array[lo];
+	array[lo] = pivot;
+	pivot = tmp2;
 	return (lo);
 }
 
@@ -48,7 +50,7 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 	if (lo < hi)
 	{
-		int part = lomuto_partition(array, lo, hi);
+		int part = lomuto_partition(array, size, lo, hi);
 
 		lomuto(array, size, lo, part - 1);
 		lomuto(array, size, part + 1, hi);
@@ -66,5 +68,5 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 void quick_sort(int *array, size_t size)
 {
-	lomuto(array, size, 0, (int)size - 1);
+	lomuto(array, size, 0, (int)(size - 1));
 }
