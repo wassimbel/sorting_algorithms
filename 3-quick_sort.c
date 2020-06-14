@@ -22,19 +22,24 @@ int lomuto_partition(int *array, size_t size, int lo, int hi)
 	{
 		if (array[i] <= pivot)
 		{
+			if (lo < i)
+			{
 			tmp = array[i];
 			array[i] = array[lo];
 			array[lo] = tmp;
-			if (lo != i)
-				print_array(array, size);
+			print_array(array, size);
+			}
 			lo++;
 		}
 	}
+	if (array[lo] > pivot)
+	{
 	tmp2 = array[lo];
 	array[lo] = pivot;
 	array[hi] = tmp2;
 	if (lo != hi)
 		print_array(array, size);
+	}
 	return (lo);
 }
 
