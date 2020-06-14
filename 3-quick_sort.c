@@ -1,62 +1,4 @@
 #include "sort.h"
-
-
-/**
- * lomuto_partition - sorts an array of integers in ascending order
- * using the Selection sort algorithm
- * @array: array to sort
- * @size: size of the array
- * @lo: lower
- * @hi: higher
- * Return: lo
- */
-
-int lomuto_partition(int *array, size_t size, int lo, int hi)
-{
-
-	int pivot = array[hi];
-	int tmp = 0, tmp2 = 0, i = lo;
-
-
-	for (i = lo; i < hi; i++)
-	{
-		if (array[i] <= pivot)
-		{
-			tmp = array[i];
-			array[i] = array[lo];
-			array[lo] = tmp;
-			lo++;
-			print_array(array, size);
-		}
-	}
-	tmp2 = array[lo];
-	array[lo] = pivot;
-	pivot = tmp2;
-	return (lo);
-}
-
-/**
- * lomuto - sorts an array of integers in ascending order
- * using the Selection sort algorithm
- * @array: array to sort
- * @size: size of the array
- * @lo: lower
- * @hi: higher
- * Return: void
- */
-
-void lomuto(int *array, size_t size, int lo, int hi)
-{
-
-	if (lo < hi)
-	{
-		int part = lomuto_partition(array, size, lo, hi);
-
-		lomuto(array, size, lo, part - 1);
-		lomuto(array, size, part + 1, hi);
-	}
-}
-
 /**
  * quick_sort - sorts an array of integers in ascending order
  * using the Selection sort algorithm
@@ -68,5 +10,31 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 void quick_sort(int *array, size_t size)
 {
-	lomuto(array, size, 0, (int)(size - 1));
+	size_t i = 0, j = 0, idx = 0;
+	int pv = 0;
+
+	if (!array || !size)
+		return;
+	pv = array[0];
+	for (j = 0; j < size; j++)
+	{
+		i = j;
+		pv = array[j];
+		while (i < size)
+		{
+			if (array[i] < pv)
+			{
+				idx = i;
+				pv = array[i];
+			}
+			i++;
+		}
+		if (j != idx && j != size - 1)
+		{
+			array[idx] = array[j];
+			array[j] = pv;
+			print_array(array, size);
+
+		}
+	}
 }
