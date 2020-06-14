@@ -1,7 +1,13 @@
 #include "sort.h"
 
-void quick_sort(int *array, size_t size, int lo, int hi)
+void quick_sort(int *array, size_t size)
 {
+		lomuto(array, size, 0, size - 1);
+}
+
+void lomuto(int *array, size_t size, int lo, int hi)
+{
+
 	if (lo < hi)
 	{
 		int part = lomuto_partition(array, size, lo, hi)
@@ -13,6 +19,7 @@ void quick_sort(int *array, size_t size, int lo, int hi)
 
 int lomuto_partition(int *array, size_t size, int lo, int hi)
 {
+
 	int pivot = array[hi];
 	int tmp = 0, tmp2 = 0, i = lo;
 
@@ -25,9 +32,9 @@ int lomuto_partition(int *array, size_t size, int lo, int hi)
 			array[lo] = tmp;
 			lo++;
 		}
-		tmp2 = array[i];
-		array[i] = hi;
-		hi = tmp2;
 	}
+	tmp2 = array[i];
+	array[i] = hi;
+	hi = tmp2;
 	return lo;
 }
