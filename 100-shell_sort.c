@@ -1,9 +1,10 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - sorts a doubly linked list of integers
- * in ascending order using the Insertion sort algorithm
- * @list: pointer to the list to sort
+ * shell_sort - sorts and array of integers
+ * in ascending order using the shell sort algorithm
+ * @array: the array
+ * @size: the array's size
  * Return: void
  **/
 
@@ -17,7 +18,7 @@ void shell_sort(int *array, size_t size)
 
 	while (h > 0)
 	{
-		for(i = h; i < size; i++)
+		for (i = h; i < size; i++)
 		{
 			v = array[i];
 			idx = i;
@@ -28,6 +29,5 @@ void shell_sort(int *array, size_t size)
 		}
 		print_array(array, size);
 		h = (h - 1) / 3;
-
 	}
 }
