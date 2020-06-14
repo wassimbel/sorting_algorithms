@@ -71,6 +71,5 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 void quick_sort(int *array, size_t size)
 {
-	if (array != NULL)
-		lomuto(array, size, 0, (int)(size - 1));
+	lomuto(array, size, 0, (int)(size - 1));
 }
