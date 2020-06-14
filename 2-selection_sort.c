@@ -5,7 +5,7 @@
  * using the Selection sort algorithm
  * @array: array to sort
  * @size: size of the array
- * @Return: void
+ * @Return:
  */
 
 void selection_sort(int *array, size_t size)
