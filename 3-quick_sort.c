@@ -20,7 +20,7 @@ int lomuto_partition(int *array, size_t size, int lo, int hi)
 
 	for (i = lo; i < hi; i++)
 	{
-		if (array[i] <= pivot)
+		if (array[i] < pivot)
 		{
 			tmp = array[i];
 			array[i] = array[lo];
@@ -55,7 +55,7 @@ void lomuto(int *array, size_t size, int lo, int hi)
 	{
 		int part = lomuto_partition(array, size, lo, hi);
 
-		lomuto(array, size, part, hi);
+		lomuto(array, size, part + 1, hi);
 		lomuto(array, size, lo, part - 1);
 	}
 }
@@ -71,7 +71,5 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 void quick_sort(int *array, size_t size)
 {
-	if (!array || !size)
-		return;
 	lomuto(array, size, 0, (int)(size - 1));
 }
