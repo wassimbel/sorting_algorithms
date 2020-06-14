@@ -60,8 +60,8 @@ void lomuto(int *array, size_t size, int lo, int hi)
 	{
 		int part = lomuto_partition(array, size, lo, hi);
 
-		lomuto(array, size, part + 1, hi);
 		lomuto(array, size, lo, part - 1);
+		lomuto(array, size, part + 1, hi);
 	}
 }
 
@@ -76,5 +76,7 @@ void lomuto(int *array, size_t size, int lo, int hi)
 
 void quick_sort(int *array, size_t size)
 {
+	if (!array || !size)
+		return;
 	lomuto(array, size, 0, (int)(size - 1));
 }
