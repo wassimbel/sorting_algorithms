@@ -6,24 +6,16 @@
  * Return: 0 if false or 1 if true
  **/
 
-int check(listint_t *list, int z)
+int check(listint_t *list)
 {
 	listint_t *next = NULL;
 
 	while (list->next)
 	{
-		if (z == 1)
-			next = list->next;
-		if (z == 2)
-			next = list->prev;
-		if (list->n > next->n && z == 1)
+		next = list->next;
+		if (list->n > next->n)
 			return (0);
-		if (list->n < next->n && z == 2)
-			return (0);
-		if (z == 1)
-			list = list->next;
-		if (z == 2)
-			list = list->prev;
+		list = list->next;
 	}
 	return (1);
 
@@ -35,21 +27,21 @@ int check(listint_t *list, int z)
  * Return: void
  **/
 
-void swap_r(listint_t **list, listint_t *cur, listint_t *next)
+void swap_r(listint_t **list, listint_t **cur, listint_t **next)
 {
 	listint_t *tmp = NULL;
 
-	cur->next = next->next;
-	if (next->next)
-		next->next->prev = cur;
-	tmp = tmp->prev;
-	cur->prev = next;
-	next->next = cur;
-	next->prev = tmp;
-	if (next->prev)
-		next->prev->next = next;
+	(*cur)->next = (*next)->next;
+	if ((*next)->next)
+		(*next)->next->prev = *cur;
+	tmp = (*cur)->prev;
+	(*cur)->prev = *next;
+	(*next)->next = *cur;
+	(*next)->prev = tmp;
+	if ((*next)->prev)
+		(*next)->prev->next = *next;
 	if (!tmp)
-		*list = next;
+		*list = *next;
 }
 
 /**
@@ -59,21 +51,21 @@ void swap_r(listint_t **list, listint_t *cur, listint_t *next)
  * Return: void
  **/
 
-void swap_r(listint_t **list, listint_t *cur, listint_t *next)
+void swap_l(listint_t **list, listint_t **cur, listint_t **next)
 {
         listint_t *tmp = NULL;
 
-        cur->prev = next->prev;
-        if (next->prev)
-                next->prev->next = cur;
-        tmp = cur->next;
-        cur->next = next;
-        next->prev = cur;
-        next->next = tmp;
-        if (next->next)
-                next->next->prev = next;
-        if (!cur->prev)
-                *list = cur;
+        (*cur)->prev = (*next)->prev;
+        if ((*next)->prev)
+                (*next)->prev->next = *cur;
+        tmp = (*cur)->next;
+        (*cur)->next = *next;
+        (*next)->prev = *cur;
+        (*next)->next = tmp;
+        if ((*next)->next)
+                (*next)->next->prev = *next;
+        if (!(*cur)->prev)
+                *list = *cur;
 }
 
 /**
@@ -85,38 +77,41 @@ void swap_r(listint_t **list, listint_t *cur, listint_t *next)
 
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *tmp = *list, *next = NULL, *current = NULL;
-	int flag = 0, left = 0, right = 1;
+	listint_t *tmp = *list, *next = NULL, *prev = NULL;
+	int flag = 0, nc = 0;
 
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
+/*	(void)flag;
+ */	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	while (tmp)
 	{
 		flag = 0;
-		if (right == 1)
-			next = tmp->next;
-		if (left == 1)
-			next = tmp->prev;
-		if (tmp->n > next->n && right == 1)
+		next = tmp->next;
+		prev = tmp->prev;
+		if (next && tmp->n > next->n)
 		{
-			swap_r(list, tmp, next);
+			swap_r(list, &tmp, &next);
 			print_list(*list);
 			flag = 1;
 		}
-		if (tmp->n > next->n && left == 1)
+		else if (prev && tmp->n < prev->n)
 		{
-			swap_l(list, tmp, next);
+			swap_l(list, &tmp, &prev);
 			print_list(*list);
 			flag = 1;
 		}
-		if (!tmp->prev && !check(*list, 2))
-			right = 1;
-		if (!tmp->next && !check(*list, 1))
-			left = 1;
-		if (tmp->n > tmp->next->n && right == 1)
-			tmp = tmp->next;
-		if (tmp->n > tmp->prev->n && left == 1)
+		if (!tmp->prev)
+			nc = 0;
+		if (check(*list) == 1)
+			break;
+		else if (!tmp->next)
+		{
 			tmp = tmp->prev;
-
+			nc = -1;
+		}
+		else if (nc == -1 && flag == 0)
+			tmp = tmp->prev;
+		else if (tmp->next && flag == 0)
+			tmp = tmp->next;
 	}
 }
