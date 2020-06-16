@@ -42,10 +42,14 @@ void top_down(int *array, size_t size, int begin, int end, int *array_copy)
 void merge_sort(int *array, size_t size)
 {
         int *array_copy = malloc(size * sizeof(int));
-
+	size_t i = 0;
 
         if (array && size)
                 top_down(array, size, 0, (int)(size - 1), array_copy);
+	for (i = 0; i < size; i++)
+		{
+			array_copy[i] = array[i];
+		}
         free(array_copy);
 }
 
