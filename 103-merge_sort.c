@@ -6,10 +6,13 @@ void merge(int *array, size_t size, int begin, int mid, __attribute__((unused))i
 
 	for (k = 0; k < size; k++)
 	{
-		if (i < mid && array[i] <= array[j])
+		if (i < mid && j < (int)size)
 		{
-			array_copy[k] = array[i];
-			i++;
+			if (array[i] < array[j])
+			{
+				array_copy[k] = array[i];
+				i++;
+			}
 		}
 		else
 		{
