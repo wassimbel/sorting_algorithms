@@ -2,7 +2,6 @@
 /**
  * check - swaps a node to the right
  * @list: pointer to the list to be checked
- * @z: check direction 1 for right and 2 for left
  * Return: 0 if false or 1 if true
  **/
 
@@ -22,6 +21,7 @@ int check(listint_t *list)
 }
 /**
  * swap_r - swaps a node to the right
+ * @list: pointer to the list to be checked
  * @cur: pointer to the node to be swapped
  * @next: pointer to the to be swapped with
  * Return: void
@@ -46,6 +46,7 @@ void swap_r(listint_t **list, listint_t **cur, listint_t **next)
 
 /**
  * swap_l - swaps a node to the left
+ * @list: pointer to the list to be checked
  * @cur: pointer to the node to be swapped
  * @next: pointer to the to be swapped with
  * Return: void
@@ -53,19 +54,19 @@ void swap_r(listint_t **list, listint_t **cur, listint_t **next)
 
 void swap_l(listint_t **list, listint_t **cur, listint_t **next)
 {
-        listint_t *tmp = NULL;
+	listint_t *tmp = NULL;
 
-        (*cur)->prev = (*next)->prev;
-        if ((*next)->prev)
-                (*next)->prev->next = *cur;
-        tmp = (*cur)->next;
-        (*cur)->next = *next;
-        (*next)->prev = *cur;
-        (*next)->next = tmp;
-        if ((*next)->next)
-                (*next)->next->prev = *next;
-        if (!(*cur)->prev)
-                *list = *cur;
+	(*cur)->prev = (*next)->prev;
+	if ((*next)->prev)
+		(*next)->prev->next = *cur;
+	tmp = (*cur)->next;
+	(*cur)->next = *next;
+	(*next)->prev = *cur;
+	(*next)->next = tmp;
+	if ((*next)->next)
+		(*next)->next->prev = *next;
+	if (!(*cur)->prev)
+		*list = *cur;
 }
 
 /**
@@ -80,8 +81,8 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *tmp = *list, *next = NULL, *prev = NULL;
 	int flag = 0, nc = 0;
 
-/*	(void)flag;
- */	if (list == NULL || *list == NULL || (*list)->next == NULL)
+
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	while (tmp)
 	{
