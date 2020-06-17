@@ -16,24 +16,20 @@ void shell_sort(int *array, size_t size)
 	while (h < size / 3)
 		h = h * 3 + 1;
 
-	while (h > 0)
+	while (h >= 1)
 	{
 		for (i = h; i < size; i++)
 		{
-			v = array[i];
-			idx = i - h;
-			while (idx >= h && array[idx] >= v)
-				idx -= h;
-			if (array[i] < array[idx])
+			idx = i;
+			while (idx >= h && array[idx - h] >= array[idx])
 			{
-			array[i] = array[idx];
-			array[idx] = v;
+				v = array[idx];
+				array[idx] = array[idx - h];
+				array[idx - h] = v;
+				idx -= h;
 			}
-			if (i != idx)
-				print_array(array, size);
 		}
-/*		print_array(array, size);
- */ printf("//////\n");
-		h = (h - 1) / 3;
+		print_array(array, size);
+		h = h / 3;
 	}
 }
