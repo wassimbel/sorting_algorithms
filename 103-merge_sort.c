@@ -19,13 +19,10 @@ void merge(int *array, size_t size, int begin, int mid, int end, int *ar_cp)
 	(void)end;
 	for (k = 0; k < size; k++)
 	{
-		if (i < mid && j >= (int)size )
+		if (i < mid && (j >= (int)size || array[i] < array[j]))
 		{
-			if (array[i] < array[j])
-			{
-				ar_cp[k] = array[i];
-				i++;
-			}
+			ar_cp[k] = array[i];
+			i++;
 		}
 		else
 		{
