@@ -53,7 +53,7 @@ void top_down(int *array, size_t size, int begin, int end, int *array_copy)
 	if (size == 1)
 		return;
 
-		mid = (begin + end - 1) / 2;
+	mid = (begin + end - 1) / 2;
 
 	top_down(array, size, begin, mid - 1, array_copy);
 	top_down(array, size, mid, end, array_copy);
