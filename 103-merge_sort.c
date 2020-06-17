@@ -55,7 +55,7 @@ void top_down(int *array, size_t size, int begin, int end, int *array_copy)
 
 		mid = (begin + end - 1) / 2;
 
-	top_down(array, size, begin, mid, array_copy);
+	top_down(array, size, begin, mid - 1, array_copy);
 	top_down(array, size, mid, end, array_copy);
 	merge(array, size, begin, mid, end, array_copy);
 
