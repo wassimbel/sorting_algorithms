@@ -11,25 +11,16 @@
 void counting_sort(int *array, size_t size)
 {
 	int *out = NULL, *count = NULL, i = 0, max = 0;
-/*	int tens = 10, x = -1;*/
 
-	if (!array && !size)
+	if (!array && size < 2)
 		return;
-	while(array[i])
+	while (array[i])
 	{
 		if (array[i] > max)
 			max = array[i];
 		i++;
 	}
-/*
-	while (x < 0)
-	{
-		x = tens - max;
-		tens *= 10;
-	}
-
-	range = x + max;
-*/	out = malloc(sizeof(int) * size);
+	out = malloc(sizeof(int) * size);
 	if (!out)
 		return;
 	count = malloc(sizeof(int) * (max + 1));
