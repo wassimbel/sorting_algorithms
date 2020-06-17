@@ -17,9 +17,9 @@ void merge(int *array, size_t size, int begin, int mid, int end, int *ar_cp)
 	size_t k = 0;
 
 	(void)end;
-	for (k = 0; k < size; k++)
+	for (k = 0; k < size - 1; k++)
 	{
-		if (i < mid && j >= (int)size)
+		if (i < mid && j <= (int)size)
 		{
 			if (array[i] < array[j])
 			{
