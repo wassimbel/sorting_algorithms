@@ -19,15 +19,18 @@ void merge(int *array, size_t size, int begin, int mid, int end, int *ar_cp)
 	(void)end;
 	for (k = 0; k < size; k++)
 	{
-		if (i < mid && (j >= (int)size || array[i] < array[j]))
+		if (i < mid && j >= (int)size)
 		{
-			ar_cp[k] = array[i];
-			i++;
-		}
-		else
-		{
-			ar_cp[k] = array[j];
-			j++;
+			if (array[i] < array[j])
+			{
+				ar_cp[k] = array[i];
+				i++;
+			}
+			else
+			{
+				ar_cp[k] = array[j];
+				j++;
+			}
 		}
 	}
 }
@@ -50,11 +53,7 @@ void top_down(int *array, size_t size, int begin, int end, int *array_copy)
 	if (size == 1)
 		return;
 
-	if (size % 2 == 0)
 		mid = (begin + end - 1) / 2;
-
-	else
-		mid = (begin + end) / 2;
 
 	top_down(array, size, begin, mid, array_copy);
 	top_down(array, size, mid, end, array_copy);
