@@ -1,58 +1,87 @@
 #include "sort.h"
-void merge(int *array, size_t size, int begin, int mid, __attribute__((unused))int end, int *array_copy)
+
+/**
+ * merge - sorts an array of integers in ascending order
+ * using the Merge sort algorithm
+ * @array: pointer to the array to sort
+ * @size: size of the array
+ * @mid: middle element
+ * @begin: start element
+ * @end: end element
+ * @ar_cp: a copy of the array
+ * Return: void
+ */
+void merge(int *array, size_t size, int begin, int mid, int end, int *ar_cp)
 {
 	int i = begin, j = mid;
 	size_t k = 0;
 
+	(void)end;
 	for (k = 0; k < size; k++)
 	{
 		if (i < mid && j < (int)size)
 		{
 			if (array[i] < array[j])
 			{
-				array_copy[k] = array[i];
+				ar_cp[k] = array[i];
 				i++;
 			}
 		}
 		else
 		{
-			array_copy[k] = array[j];
+			ar_cp[k] = array[j];
 			j++;
 		}
 	}
 }
 
+/**
+ * top_down - sorts an array of integers in ascending order
+ * using the Merge sort algorithm
+ * @array: pointer to the array to sort
+ * @size: size of the array
+ * @begin: start element
+ * @end: end element
+ * @array_copy: a copy of the array
+ * Return: void
+ */
+
 void top_down(int *array, size_t size, int begin, int end, int *array_copy)
 {
-        int mid = 0;
+	int mid = 0;
 
-        if (size == 1)
-                return;
+	if (size == 1)
+		return;
 
-        if (size % 2 == 0)
-                 mid = (begin + end - 1) / 2;
+	if (size % 2 == 0)
+		mid = (begin + end - 1) / 2;
 
-        else
-                mid = (begin + end) / 2;
+	else
+		mid = (begin + end) / 2;
 
-        top_down(array, size, begin, mid, array_copy);
-        top_down(array, size, mid, end, array_copy);
-        merge(array, size, begin, mid, end, array_copy);
+	top_down(array, size, begin, mid, array_copy);
+	top_down(array, size, mid, end, array_copy);
+	merge(array, size, begin, mid, end, array_copy);
 
 }
-
+/**
+ * merge_sort - sorts an array of integers in ascending order
+ * using the Merge sort algorithm
+ * @array: pointer to the array to sort
+ * @size: size of the array
+ * Return: void
+ */
 
 void merge_sort(int *array, size_t size)
 {
-        int *array_copy = malloc(size * sizeof(int));
+	int *array_copy = malloc(size * sizeof(int));
 	size_t i = 0;
 
-        if (array && size)
-                top_down(array, size, 0, (int)(size - 1), array_copy);
+	if (array && size)
+		top_down(array, size, 0, (int)(size - 1), array_copy);
 	for (i = 0; i < size; i++)
-		{
-			array_copy[i] = array[i];
-		}
-        free(array_copy);
+	{
+		array_copy[i] = array[i];
+	}
+	free(array_copy);
 }
-
