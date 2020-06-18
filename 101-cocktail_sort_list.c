@@ -78,12 +78,14 @@ void swap_l(listint_t **list, listint_t **cur, listint_t **next)
 
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *tmp = *list, *next = NULL, *prev = NULL;
+	listint_t *tmp, *next = NULL, *prev = NULL;
 	int flag = 0, nc = 0;
 
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
+	tmp = *list;
+
 	while (tmp)
 	{
 		flag = 0;
